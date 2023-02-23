@@ -19,4 +19,6 @@ export const TitleContainer = styled.div`
     }
   }
 `
-export const Controllers = styled.div``
+export const Controllers = styled.div`
+  display: flex;
+`

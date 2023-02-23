@@ -1,5 +1,10 @@
+import React from 'react'
 import * as S from './styles'
 
-export const Content = () => {
-  return <S.Container>Content</S.Container>
+interface ChildrenProps {
+  children: React.ReactNode
+}
+
+export const Content: React.FC<ChildrenProps> = ({ children }) => {
+  return <S.Container>{children}</S.Container>
 }

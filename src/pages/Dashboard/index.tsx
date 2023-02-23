@@ -1,3 +1,10 @@
+import { ContentHeader } from '../../components/ContentHeader'
+import * as S from './styles'
+
 export const Dashboard = () => {
-  return <h1>Dashboard</h1>
+  return (
+    <S.Container>
+      <ContentHeader />
+    </S.Container>
+  )
 }

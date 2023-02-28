@@ -5,6 +5,8 @@ import { HistoryFinanceCard } from '../../components/HistoryFinanceCard'
 import { SelectInput } from '../../components/SelectInput'
 import expenses from '../../repositories/expenses'
 import gains from '../../repositories/gains'
+import formatCurrency from '../../utils/formatCurrency'
+import formatDate from '../../utils/formatDate'
 import * as S from './styles'
 
 interface IData {
@@ -18,6 +20,8 @@ interface IData {
 
 export const List = () => {
   const [data, setData] = useState<IData[]>([])
+  const [selectedMonth, setSelectedMonth] = useState<string>('')
+  const [selectedYear, setSelectedYear] = useState<string>('')
 
   const { type } = useParams()
 
@@ -54,9 +58,9 @@ export const List = () => {
       return {
         id: String(Math.random() * data.length),
         description: item.description,
-        amountFormatted: item.amount,
+        amountFormatted: formatCurrency(Number(item.amount)),
         frequency: item.frequency,
-        dateFormatted: item.date,
+        dateFormatted: formatDate(item.date),
         tagColor: item.frequency === 'recorrente' ? '#4E41F0' : '#E44C4E',
       }
     })
@@ -66,8 +70,8 @@ export const List = () => {
   return (
     <S.Container>
       <ContentHeader title={title.name} lineColor={title.lineColor}>
-        <SelectInput options={months} />
-        <SelectInput options={years} />
+        <SelectInput options={months} onChange={(event) => setSelectedMonth(event.target.value)} />
+        <SelectInput options={years} onChange={(event) => setSelectedYear(event.target.value)} />
       </ContentHeader>
       <S.Filters>
         <button type="button" className="filter-tag" id="recurrents">

@@ -11,8 +11,8 @@ export const SelectInput = ({ options }: ISelectInputProps) => {
   return (
     <S.Container>
       <select>
-        {options.map((option, index) => (
-          <option value={option.value} key={index}>
+        {options.map((option) => (
+          <option value={option.value} key={option.value}>
             {option.label}
           </option>
         ))}

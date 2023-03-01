@@ -7,12 +7,13 @@ interface ISelectInputProps {
     label: string | number
   }[]
   onChange(event: React.ChangeEvent<HTMLSelectElement>): void | undefined
+  defaultValue: string | number
 }
 
-export const SelectInput = ({ options, onChange }: ISelectInputProps) => {
+export const SelectInput = ({ options, onChange, defaultValue }: ISelectInputProps) => {
   return (
     <S.Container>
-      <select onChange={onChange}>
+      <select onChange={onChange} defaultValue={defaultValue}>
         {options.map((option) => (
           <option value={option.value} key={option.value}>
             {option.label}

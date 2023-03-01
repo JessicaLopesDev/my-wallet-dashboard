@@ -20,8 +20,8 @@ interface IData {
 
 export const List = () => {
   const [data, setData] = useState<IData[]>([])
-  const [selectedMonth, setSelectedMonth] = useState<string>('')
-  const [selectedYear, setSelectedYear] = useState<string>('')
+  const [selectedMonth, setSelectedMonth] = useState<string>(String(new Date().getMonth() + 1))
+  const [selectedYear, setSelectedYear] = useState<string>(String(new Date().getFullYear()))
 
   const { type } = useParams()
 
@@ -48,8 +48,8 @@ export const List = () => {
   ]
 
   const years = [
-    { value: 2023, label: 2023 },
     { value: 2022, label: 2022 },
+    { value: 2023, label: 2023 },
     { value: 2021, label: 2021 },
   ]
 
@@ -70,8 +70,16 @@ export const List = () => {
   return (
     <S.Container>
       <ContentHeader title={title.name} lineColor={title.lineColor}>
-        <SelectInput options={months} onChange={(event) => setSelectedMonth(event.target.value)} />
-        <SelectInput options={years} onChange={(event) => setSelectedYear(event.target.value)} />
+        <SelectInput
+          options={months}
+          onChange={(event) => setSelectedMonth(event.target.value)}
+          defaultValue={selectedMonth}
+        />
+        <SelectInput
+          options={years}
+          onChange={(event) => setSelectedYear(event.target.value)}
+          defaultValue={selectedYear}
+        />
       </ContentHeader>
       <S.Filters>
         <button type="button" className="filter-tag" id="recurrents">

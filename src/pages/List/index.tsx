@@ -102,7 +102,7 @@ export const List = () => {
       }
     })
     setData(formattedDate)
-  }, [data, selectedMonth, selectedYear, data.length, frequencyFilterSelected])
+  }, [pageData, selectedMonth, selectedYear, data.length, frequencyFilterSelected])
 
   return (
     <S.Container>

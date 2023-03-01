@@ -20,6 +20,7 @@ export const Filters = styled.div`
     margin: 0 10px;
 
     transition: opacity 0.3s;
+    opacity: 0.3;
 
     &:hover {
       opacity: 0.7;
@@ -31,7 +32,7 @@ export const Filters = styled.div`
     display: block;
     width: 55px;
     margin: 5px auto;
-    border-bottom: 10px solid ${({ theme }) => theme.colors.warning};
+    border-bottom: 10px solid ${({ theme }) => theme.colors.success};
   }
 
   #eventuals::after {
@@ -39,7 +40,11 @@ export const Filters = styled.div`
     display: block;
     width: 55px;
     margin: 5px auto;
-    border-bottom: 10px solid ${({ theme }) => theme.colors.success};
+    border-bottom: 10px solid ${({ theme }) => theme.colors.warning};
+  }
+
+  .actived {
+    opacity: 1;
   }
 `
 

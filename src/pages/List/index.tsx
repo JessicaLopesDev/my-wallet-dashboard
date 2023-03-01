@@ -24,8 +24,8 @@ interface IData {
 
 export const List = () => {
   const [data, setData] = useState<IData[]>([])
-  const [selectedMonth, setSelectedMonth] = useState<string>(String(new Date().getMonth() + 1))
-  const [selectedYear, setSelectedYear] = useState<string>(String(new Date().getFullYear()))
+  const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth() + 1)
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
   const [frequencyFilterSelected, setFrequencyFilterSelected] = useState(['recorrente', 'eventual'])
 
   const { type } = useParams()
@@ -76,13 +76,31 @@ export const List = () => {
     }
   }
 
+  const handleMonthSelected = (month: string) => {
+    try {
+      const parseMonth = Number(month)
+      setSelectedMonth(parseMonth)
+    } catch {
+      throw new Error('invalid month value. Is accept 0 - 24.')
+    }
+  }
+
+  const handleYearSelected = (year: string) => {
+    try {
+      const parseYear = Number(year)
+      setSelectedYear(parseYear)
+    } catch {
+      throw new Error('invalid year value. Is accept integer numbers.')
+    }
+  }
+
   useEffect(() => {
     const { data } = pageData
 
     const filteredDate = data.filter((item) => {
       const date = new Date(item.date)
-      const month = String(date.getMonth() + 1)
-      const year = String(date.getFullYear())
+      const month = date.getMonth() + 1
+      const year = date.getFullYear()
 
       return (
         month === selectedMonth &&
@@ -109,12 +127,12 @@ export const List = () => {
       <ContentHeader title={pageData.name} lineColor={pageData.lineColor}>
         <SelectInput
           options={listOfMonths}
-          onChange={(event) => setSelectedMonth(event.target.value)}
+          onChange={(event) => handleMonthSelected(event.target.value)}
           defaultValue={selectedMonth}
         />
         <SelectInput
           options={years}
-          onChange={(event) => setSelectedYear(event.target.value)}
+          onChange={(event) => handleYearSelected(event.target.value)}
           defaultValue={selectedYear}
         />
       </ContentHeader>

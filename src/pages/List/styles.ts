@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 export const Container = styled.div``
 
+export const Content = styled.main``
+
 export const Filters = styled.div`
   width: 100%;
 
@@ -19,8 +21,8 @@ export const Filters = styled.div`
 
     margin: 0 10px;
 
-    transition: opacity 0.3s;
     opacity: 0.3;
+    transition: opacity 0.3s;
 
     &:hover {
       opacity: 0.7;
@@ -47,5 +49,3 @@ export const Filters = styled.div`
     opacity: 1;
   }
 `
-
-export const Content = styled.div``

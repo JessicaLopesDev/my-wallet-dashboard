@@ -10,6 +10,9 @@ import gains from '../../repositories/gains'
 import months from '../../utils/months'
 
 import happyImg from '../../assets/happy.svg';
+import sadImg from '../../assets/sad.svg';
+import grinningImg from '../../assets/grinning.svg';
+import opsImg from '../../assets/ops.svg';
 
 import * as S from './styles'
 
@@ -40,6 +43,86 @@ export const Dashboard = () => {
   const listOfMonths = useMemo(() => {
     return months.map((item, index) => ({ value: index + 1, label: item }))
   }, [])
+
+  const expensesTotal = useMemo(() => {
+    let total: number = 0
+
+    expenses.forEach(element => {
+      const date = new Date(element.date);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+
+      if (month === selectedMonth && year === selectedYear) {
+        try {
+          total += Number(element.amount)
+        } catch {
+          throw new Error('Invalid amount! Amount must be a number')
+        }
+      }
+    });
+
+    return total
+  }, [selectedMonth, selectedYear])
+
+  const gainsTotal = useMemo(() => {
+    let total: number = 0
+
+    gains.forEach(element => {
+      const date = new Date(element.date);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+
+      if (month === selectedMonth && year === selectedYear) {
+        try {
+          total += Number(element.amount)
+        } catch {
+          throw new Error('Invalid amount! Amount must be a number')
+        }
+      }
+    });
+
+    return total
+  }, [selectedMonth, selectedYear])
+
+  const totalBalance = useMemo(() => {
+    return gainsTotal - expensesTotal
+  }, [selectedMonth, selectedYear])
+
+  const message = useMemo(() => {
+    if (totalBalance < 0) {
+      return {
+        title: "Que triste!",
+        description: "Neste mês, você gastou mais do que deveria.",
+        footerText: "Verifique seus gastos e tente cortar algumas coisas desnecessárias.",
+        icon: sadImg
+      }
+    }
+    else if (gainsTotal === 0 && expensesTotal === 0) {
+      return {
+        title: "Op's!",
+        description: "Neste mês, não há registros de entradas ou saídas.",
+        footerText: "Parece que você não fez nenhum registro no mês e ano selecionado.",
+        icon: opsImg
+      }
+    }
+    else if (totalBalance === 0) {
+      return {
+        title: "Ufaa!",
+        description: "Neste mês, você gastou exatamente o que ganhou.",
+        footerText: "Tenha cuidado. No próximo tente poupar o seu dinheiro.",
+        icon: grinningImg
+      }
+    }
+    else {
+      return {
+        title: "Muito bem!",
+        description: "Sua carteira está positiva!",
+        footerText: "Continue assim. Considere investir o seu saldo.",
+        icon: happyImg
+      }
+    }
+  }, [totalBalance, gainsTotal, expensesTotal]);
+
 
   const handleMonthSelected = (month: string) => {
     try {
@@ -77,7 +160,7 @@ export const Dashboard = () => {
       <S.Content>
         <WalletBox
           title='saldo'
-          amount={150.00}
+          amount={totalBalance}
           color="#4E41F0"
           footerLabel="atualizado com base nas entradas e saídas"
           icon="dollar"
@@ -85,7 +168,7 @@ export const Dashboard = () => {
         <WalletBox
           title="entradas"
           color="#F7931B"
-          amount={5000.00}
+          amount={gainsTotal}
           footerLabel="atualizado com base nas entradas e saídas"
           icon="arrowUp"
         />
@@ -93,15 +176,15 @@ export const Dashboard = () => {
         <WalletBox
           title="saídas"
           color="#E44C4E"
-          amount={4850.00}
+          amount={expensesTotal}
           footerLabel="atualizado com base nas entradas e saídas"
           icon="arrowDown"
         />
         <MessageBox
-          title="Muito bem!"
-          description="Sua carteira está positiva!"
-          footerText="Continue assim. Considere investir o seu saldo."
-          icon={happyImg}
+          title={message.title}
+          description={message.description}
+          footerText={message.footerText}
+          icon={message.icon}
         />
       </S.Content>
     </S.Container>

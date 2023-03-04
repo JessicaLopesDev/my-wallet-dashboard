@@ -295,7 +295,7 @@ export default [
   },
   {
     description: 'Energia elétrica',
-    amount: '250.00',
+    amount: '1000.01',
     type: 'saída',
     frequency: 'recorrente',
     date: '2023-07-10',

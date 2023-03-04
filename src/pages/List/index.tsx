@@ -33,15 +33,15 @@ export const List = () => {
   const pageData = useMemo(() => {
     return type === 'entry-balance'
       ? {
-          name: 'Entradas',
-          lineColor: '#F7931B',
-          data: gains,
-        }
+        name: 'Entradas',
+        lineColor: '#4E41F0',
+        data: gains,
+      }
       : {
-          name: 'Saidas',
-          lineColor: '#E44C4E',
-          data: expenses,
-        }
+        name: 'Saidas',
+        lineColor: '#E44C4E',
+        data: expenses,
+      }
   }, [type])
 
   const listOfMonths = useMemo(() => {

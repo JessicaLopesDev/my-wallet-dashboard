@@ -1,10 +1,15 @@
 import { useMemo, useState } from 'react'
+
 import { ContentHeader } from '../../components/ContentHeader'
+import { MessageBox } from '../../components/MessageBox'
 import { SelectInput } from '../../components/SelectInput'
 import { WalletBox } from '../../components/WalletBox'
+
 import expenses from '../../repositories/expenses'
 import gains from '../../repositories/gains'
 import months from '../../utils/months'
+
+import happyImg from '../../assets/happy.svg';
 
 import * as S from './styles'
 
@@ -91,6 +96,12 @@ export const Dashboard = () => {
           amount={4850.00}
           footerLabel="atualizado com base nas entradas e saídas"
           icon="arrowDown"
+        />
+        <MessageBox
+          title="Muito bem!"
+          description="Sua carteira está positiva!"
+          footerText="Continue assim. Considere investir o seu saldo."
+          icon={happyImg}
         />
       </S.Content>
     </S.Container>

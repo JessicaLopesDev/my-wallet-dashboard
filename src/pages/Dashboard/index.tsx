@@ -15,6 +15,7 @@ import grinningImg from '../../assets/grinning.svg';
 import opsImg from '../../assets/ops.svg';
 
 import * as S from './styles'
+import { Piechart } from '../../components/Piechart'
 
 export const Dashboard = () => {
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth() + 1)
@@ -186,6 +187,7 @@ export const Dashboard = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
+        <Piechart />
       </S.Content>
     </S.Container>
   )

@@ -124,6 +124,28 @@ export const Dashboard = () => {
     }
   }, [totalBalance, gainsTotal, expensesTotal]);
 
+  const relationExpensesVersusGains = useMemo(() => {
+    const total = gainsTotal + expensesTotal;
+
+    const percentGains = Number(((gainsTotal / total) * 100).toFixed(1));
+    const percentExpenses = Number(((expensesTotal / total) * 100).toFixed(1));
+
+    const data = [
+      {
+        name: "Entradas",
+        percent: percentGains ? percentGains : 0,
+        color: '#E44C4E'
+      },
+      {
+        name: "Saídas",
+        percent: percentExpenses ? percentExpenses : 0,
+        color: '#F7931B'
+      },
+    ];
+
+    return data;
+  }, [gainsTotal, expensesTotal]);
+
 
   const handleMonthSelected = (month: string) => {
     try {
@@ -187,7 +209,7 @@ export const Dashboard = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
-        <Piechart />
+        <Piechart data={relationExpensesVersusGains}/>
       </S.Content>
     </S.Container>
   )

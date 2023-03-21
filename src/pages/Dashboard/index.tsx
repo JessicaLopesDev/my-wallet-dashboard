@@ -16,6 +16,7 @@ import opsImg from '../../assets/ops.svg';
 
 import * as S from './styles'
 import { Piechart } from '../../components/Piechart'
+import HistoryBox from '../../components/HistoryBox'
 
 export const Dashboard = () => {
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth() + 1)
@@ -134,17 +135,64 @@ export const Dashboard = () => {
       {
         name: "Entradas",
         percent: percentGains ? percentGains : 0,
-        color: '#E44C4E'
+        color: '#F7931B'
       },
       {
         name: "Saídas",
         percent: percentExpenses ? percentExpenses : 0,
-        color: '#F7931B'
+        color: '#E44C4E'
       },
     ];
 
     return data;
   }, [gainsTotal, expensesTotal]);
+
+  const historyData = useMemo(() => {
+    return months.map((_, monthIndex) => {
+
+      let entryAmount = 0;
+      gains.forEach(gain => {
+        const date = new Date(gain.date)
+        const gainMonth = date.getMonth()
+        const gainYear = date.getFullYear()
+
+        if (gainMonth === monthIndex && gainYear === selectedYear) {
+          try {
+            entryAmount += Number(gain.amount)
+          } catch {
+            throw new Error('AmountEntry must be a valid number')
+          }
+        }
+      })
+
+      let outputAmount = 0;
+      expenses.forEach(expense => {
+        const date = new Date(expense.date)
+        const expenseMonth = date.getMonth()
+        const expenseYear = date.getFullYear()
+
+        if (expenseMonth === monthIndex && expenseYear === selectedYear) {
+          try {
+            outputAmount += Number(expense.amount)
+          } catch {
+            throw new Error('OutputAmount must be a valid number')
+          }
+        }
+      })
+
+      return {
+        monthNumber: monthIndex,
+        month: months[monthIndex].substring(0, 3),
+        entryAmount,
+        outputAmount
+      }
+    }).filter(item => {
+      const currentMonth = new Date().getMonth()
+      const currentYear = new Date().getFullYear()
+      return (selectedYear === currentYear && item.monthNumber <= currentMonth) ||
+      (selectedYear < currentYear)
+    })
+  },[selectedYear])
 
 
   const handleMonthSelected = (month: string) => {
@@ -210,6 +258,11 @@ export const Dashboard = () => {
           icon={message.icon}
         />
         <Piechart data={relationExpensesVersusGains}/>
+        <HistoryBox 
+          data={ historyData }
+          entryColor="#F7931B"
+          outputColor="#E44C4E"
+        />
       </S.Content>
     </S.Container>
   )

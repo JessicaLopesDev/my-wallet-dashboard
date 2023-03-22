@@ -12,15 +12,13 @@ export const HistoryFinanceCard = ({
   title,
   subtitle,
   amount,
-}: IHistoryFinanceCardProps) => {
-  return (
-    <S.Container>
-      <S.Tag color={tagColor} />
-      <div>
-        <span>{title}</span>
-        <small>{subtitle}</small>
-      </div>
-      <h3>{amount}</h3>
-    </S.Container>
-  )
-}
+}: IHistoryFinanceCardProps) => (
+  <S.Container>
+    <S.Tag color={tagColor} />
+    <div>
+      <span>{title}</span>
+      <small>{subtitle}</small>
+    </div>
+    <h3>{amount}</h3>
+  </S.Container>
+)

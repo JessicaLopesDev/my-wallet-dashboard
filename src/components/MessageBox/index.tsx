@@ -12,20 +12,18 @@ export const MessageBox = ({
   description,
   footerText,
   icon,
-}: IMessageBoxProps) => {
-  return (
-    <S.Container>
-      <header>
-        <h1>
-          {title}
-          <img src={icon} alt={title} />
-        </h1>
-        <p>{description}</p>
-      </header>
+}: IMessageBoxProps) => (
+  <S.Container>
+    <header>
+      <h1>
+        {title}
+        <img src={icon} alt={title} />
+      </h1>
+      <p>{description}</p>
+    </header>
 
-      <footer>
-        <span>{footerText}</span>
-      </footer>
-    </S.Container>
-  )
-}
+    <footer>
+      <span>{footerText}</span>
+    </footer>
+  </S.Container>
+)

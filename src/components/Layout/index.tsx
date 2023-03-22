@@ -9,12 +9,10 @@ interface ChildrenProps {
   children: React.ReactNode
 }
 
-export const Layout: React.FC<ChildrenProps> = ({ children }) => {
-  return (
-    <S.Container>
-      <MainHeader />
-      <Aside />
-      <Content>{children}</Content>
-    </S.Container>
-  )
-}
+export const Layout: React.FC<ChildrenProps> = ({ children }) => (
+  <S.Container>
+    <MainHeader />
+    <Aside />
+    <Content>{children}</Content>
+  </S.Container>
+)

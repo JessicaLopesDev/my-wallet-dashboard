@@ -10,16 +10,14 @@ interface ISelectInputProps {
   defaultValue: string | number
 }
 
-export const SelectInput = ({ options, onChange, defaultValue }: ISelectInputProps) => {
-  return (
-    <S.Container>
-      <select onChange={onChange} defaultValue={defaultValue}>
-        {options.map((option) => (
-          <option value={option.value} key={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </S.Container>
-  )
-}
+export const SelectInput = ({ options, onChange, defaultValue }: ISelectInputProps) => (
+  <S.Container>
+    <select onChange={onChange} defaultValue={defaultValue}>
+      {options.map((option) => (
+        <option value={option.value} key={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  </S.Container>
+)

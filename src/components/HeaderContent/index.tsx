@@ -7,13 +7,11 @@ interface IHeaderContentProps {
   children: React.ReactNode
 }
 
-export const HeaderContent = ({ title, lineColor, children }: IHeaderContentProps) => {
-  return (
-    <S.Container>
-      <S.Title lineColor={lineColor}>
-        <h1>{title}</h1>
-      </S.Title>
-      <S.Controllers>{children}</S.Controllers>
-    </S.Container>
-  )
-}
+export const HeaderContent = ({ title, lineColor, children }: IHeaderContentProps) => (
+  <S.Container>
+    <S.Title lineColor={lineColor}>
+      <h1>{title}</h1>
+    </S.Title>
+    <S.Controllers>{children}</S.Controllers>
+  </S.Container>
+)

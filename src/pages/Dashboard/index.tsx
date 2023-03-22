@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 
-import { ContentHeader } from '../../components/ContentHeader'
+import { HeaderContent } from '../../components/HeaderContent'
 import { MessageBox } from '../../components/MessageBox'
 import { SelectInput } from '../../components/SelectInput'
 import { WalletBox } from '../../components/WalletBox'
@@ -17,6 +17,7 @@ import opsImg from '../../assets/ops.svg';
 import * as S from './styles'
 import { Piechart } from '../../components/Piechart'
 import HistoryBox from '../../components/HistoryBox'
+import BarChartBox from '../../components/BarChartBox'
 
 export const Dashboard = () => {
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth() + 1)
@@ -194,6 +195,91 @@ export const Dashboard = () => {
     })
   },[selectedYear])
 
+  const recurrentVersusEventualExpensesRelation = useMemo(() => {
+    let recurrentAmount = 0;
+    let eventualAmount = 0;
+
+    expenses
+      .filter((expense) => {
+        const date = new Date(expense.date);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+
+        return month === selectedMonth && year === selectedYear;
+      })
+      .forEach((expense) => {
+        if (expense.frequency === 'recorrente') {
+          return recurrentAmount += Number(expense.amount);
+        }
+
+        if (expense.frequency === 'eventual') {
+          return eventualAmount += Number(expense.amount);
+        }
+      });
+
+    const total = recurrentAmount + eventualAmount;
+
+    const recurrentPercent = Number(((recurrentAmount / total) * 100).toFixed(1));
+    const eventualPercent = Number(((eventualAmount / total) * 100).toFixed(1));
+
+    return [
+      {
+        name: 'Recorrentes',
+        amount: recurrentAmount,
+        percent: recurrentPercent ? recurrentPercent : 0,
+        color: "#F7931B"
+      },
+      {
+        name: 'Eventuais',
+        amount: eventualAmount,
+        percent: eventualPercent ? eventualPercent : 0,
+        color: "#E44C4E"
+      }
+    ];
+  }, [selectedMonth, selectedYear]);
+
+  const recurrentVersusEventualGainsRelation = useMemo(() => {
+    let recurrentAmount = 0;
+    let eventualAmount = 0;
+
+    gains
+      .filter((gain) => {
+        const date = new Date(gain.date);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+
+        return month === selectedMonth && year === selectedYear;
+      })
+      .forEach((gain) => {
+        if (gain.frequency === 'recorrente') {
+          return recurrentAmount += Number(gain.amount);
+        }
+
+        if (gain.frequency === 'eventual') {
+          return eventualAmount += Number(gain.amount);
+        }
+      });
+
+    const total = recurrentAmount + eventualAmount;
+
+    const recurrentPercent = Number(((recurrentAmount / total) * 100).toFixed(1));
+    const eventualPercent = Number(((eventualAmount / total) * 100).toFixed(1));
+
+    return [
+      {
+        name: 'Recorrentes',
+        amount: recurrentAmount,
+        percent: recurrentPercent ? recurrentPercent : 0,
+        color: "#F7931B"
+      },
+      {
+        name: 'Eventuais',
+        amount: eventualAmount,
+        percent: eventualPercent ? eventualPercent : 0,
+        color: "#E44C4E"
+      }
+    ];
+  }, [selectedMonth, selectedYear]);
 
   const handleMonthSelected = (month: string) => {
     try {
@@ -215,7 +301,7 @@ export const Dashboard = () => {
 
   return (
     <S.Container>
-      <ContentHeader title="Dashboard" lineColor="#F7931B">
+      <HeaderContent title="Dashboard" lineColor="#F7931B">
         <SelectInput
           options={listOfMonths}
           onChange={(event) => handleMonthSelected(event.target.value)}
@@ -226,7 +312,7 @@ export const Dashboard = () => {
           onChange={(event) => handleYearSelected(event.target.value)}
           defaultValue={selectedYear}
         />
-      </ContentHeader>
+      </HeaderContent>
 
       <S.Content>
         <WalletBox
@@ -262,6 +348,14 @@ export const Dashboard = () => {
           data={ historyData }
           entryColor="#F7931B"
           outputColor="#E44C4E"
+        />
+        <BarChartBox 
+          data={ recurrentVersusEventualExpensesRelation }
+          title="Saídas"
+        />
+        <BarChartBox 
+          data={ recurrentVersusEventualGainsRelation }
+          title="Entradas"
         />
       </S.Content>
     </S.Container>

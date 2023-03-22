@@ -12,7 +12,7 @@ export const Container = styled.div`
   justify-content: space-between;
 `
 
-export const TitleContainer = styled.div<ITitleContainerProps>`
+export const Title = styled.div<ITitleContainerProps>`
   > h1 {
     color: ${({ theme }) => theme.colors.white};
     &::after {

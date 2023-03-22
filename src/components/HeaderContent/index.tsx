@@ -1,18 +1,18 @@
 import React from 'react'
 import * as S from './styles'
 
-interface IContentHeaderProps {
+interface IHeaderContentProps {
   title: string
   lineColor: string
   children: React.ReactNode
 }
 
-export const ContentHeader = ({ title, lineColor, children }: IContentHeaderProps) => {
+export const HeaderContent = ({ title, lineColor, children }: IHeaderContentProps) => {
   return (
     <S.Container>
-      <S.TitleContainer lineColor={lineColor}>
+      <S.Title lineColor={lineColor}>
         <h1>{title}</h1>
-      </S.TitleContainer>
+      </S.Title>
       <S.Controllers>{children}</S.Controllers>
     </S.Container>
   )

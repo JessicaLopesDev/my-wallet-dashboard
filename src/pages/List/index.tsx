@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
-import { ContentHeader } from '../../components/ContentHeader'
+import { HeaderContent } from '../../components/HeaderContent'
 import { HistoryFinanceCard } from '../../components/HistoryFinanceCard'
 import { SelectInput } from '../../components/SelectInput'
 import expenses from '../../repositories/expenses'
@@ -124,7 +124,7 @@ export const List = () => {
 
   return (
     <S.Container>
-      <ContentHeader title={pageData.name} lineColor={pageData.lineColor}>
+      <HeaderContent title={pageData.name} lineColor={pageData.lineColor}>
         <SelectInput
           options={listOfMonths}
           onChange={(event) => handleMonthSelected(event.target.value)}
@@ -135,7 +135,7 @@ export const List = () => {
           onChange={(event) => handleYearSelected(event.target.value)}
           defaultValue={selectedYear}
         />
-      </ContentHeader>
+      </HeaderContent>
       <S.Filters>
         <button
           type="button"

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { HeaderContent } from '../../components/HeaderContent'
 import { MessageBox } from '../../components/MessageBox'
@@ -281,23 +281,23 @@ export const Dashboard = () => {
     ];
   }, [selectedMonth, selectedYear]);
 
-  const handleMonthSelected = (month: string) => {
+  const handleMonthSelected = useCallback((month: string) => {
     try {
       const parseMonth = Number(month)
       setSelectedMonth(parseMonth)
     } catch {
       throw new Error('invalid month value. Is accept 0 - 24.')
     }
-  }
+  }, [])
 
-  const handleYearSelected = (year: string) => {
+  const handleYearSelected = useCallback((year: string) => {
     try {
       const parseYear = Number(year)
       setSelectedYear(parseYear)
     } catch {
       throw new Error('invalid year value. Is accept integer numbers.')
     }
-  }
+  }, [])
 
   return (
     <S.Container>

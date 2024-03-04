@@ -29,7 +29,7 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 - Listar entradas e saídas cadastradas
 - Mostrar gráficos de entradas e saídas
 
-## [](https://github.com/JessicaLopesDev/Dashboard-Financial-Charts) 🚀 Como executar o projeto
+## [](https://github.com/JessicaLopesDev/my-wallet-dashboard) 🚀 Como executar o projeto
 
 #### 🧭 Rodando a aplicação
 
@@ -37,11 +37,11 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 
 # Clone o repositório
 
-$ git clone https://github.com/JessicaLopesDev/Dashboard-Financial-Charts.git
+$ git clone https://github.com/JessicaLopesDev/my-wallet-dashboard.git
 
 # Acesse a pasta do projeto
 
-$ cd Dashboard-Financial-Charts
+$ cd my-wallet-dashboard
 
 # Instale as dependências
 
